@@ -8,20 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		337835CE1E42D35E00C24945 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337835CD1E42D35E00C24945 /* AppDelegate.swift */; };
-		337835D01E42D35E00C24945 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337835CF1E42D35E00C24945 /* ViewController.swift */; };
 		337835D31E42D35E00C24945 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 337835D11E42D35E00C24945 /* Main.storyboard */; };
 		337835D51E42D35E00C24945 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 337835D41E42D35E00C24945 /* Assets.xcassets */; };
 		337835D81E42D35E00C24945 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 337835D61E42D35E00C24945 /* LaunchScreen.storyboard */; };
+		337835E01E42D5C900C24945 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337835DF1E42D5C900C24945 /* PhotosViewController.swift */; };
+		337835E31E42DCF600C24945 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337835E21E42DCF600C24945 /* PhotoCell.swift */; };
+		E6135D3A6394DD2E5A79BD17 /* Pods_Tumblet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2673737F20C1F1BE724A53A0 /* Pods_Tumblet.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2673737F20C1F1BE724A53A0 /* Pods_Tumblet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tumblet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		337835CA1E42D35E00C24945 /* Tumblet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tumblet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		337835CD1E42D35E00C24945 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		337835CF1E42D35E00C24945 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		337835D21E42D35E00C24945 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		337835D41E42D35E00C24945 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		337835D71E42D35E00C24945 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		337835D91E42D35E00C24945 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		337835DF1E42D5C900C24945 /* PhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
+		337835E21E42DCF600C24945 /* PhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
+		B86C930B222A557906E62F77 /* Pods-Tumblet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tumblet.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tumblet/Pods-Tumblet.release.xcconfig"; sourceTree = "<group>"; };
+		BEC0A822746485FE16FF1543 /* Pods-Tumblet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tumblet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tumblet/Pods-Tumblet.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +35,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6135D3A6394DD2E5A79BD17 /* Pods_Tumblet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		335E95E4FBFDB5F40B06F18D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2673737F20C1F1BE724A53A0 /* Pods_Tumblet.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		337835C11E42D35D00C24945 = {
 			isa = PBXGroup;
 			children = (
 				337835CC1E42D35E00C24945 /* Tumblet */,
 				337835CB1E42D35E00C24945 /* Products */,
+				F403673733C071432D422BB4 /* Pods */,
+				335E95E4FBFDB5F40B06F18D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +71,32 @@
 		337835CC1E42D35E00C24945 /* Tumblet */ = {
 			isa = PBXGroup;
 			children = (
+				337835E11E42D5D400C24945 /* View Controllers */,
 				337835CD1E42D35E00C24945 /* AppDelegate.swift */,
-				337835CF1E42D35E00C24945 /* ViewController.swift */,
 				337835D11E42D35E00C24945 /* Main.storyboard */,
 				337835D41E42D35E00C24945 /* Assets.xcassets */,
 				337835D61E42D35E00C24945 /* LaunchScreen.storyboard */,
 				337835D91E42D35E00C24945 /* Info.plist */,
 			);
 			path = Tumblet;
+			sourceTree = "<group>";
+		};
+		337835E11E42D5D400C24945 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				337835DF1E42D5C900C24945 /* PhotosViewController.swift */,
+				337835E21E42DCF600C24945 /* PhotoCell.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		F403673733C071432D422BB4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BEC0A822746485FE16FF1543 /* Pods-Tumblet.debug.xcconfig */,
+				B86C930B222A557906E62F77 /* Pods-Tumblet.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +106,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 337835DC1E42D35E00C24945 /* Build configuration list for PBXNativeTarget "Tumblet" */;
 			buildPhases = (
+				74A4DB5266D3D767E14A41A0 /* [CP] Check Pods Manifest.lock */,
 				337835C61E42D35D00C24945 /* Sources */,
 				337835C71E42D35D00C24945 /* Frameworks */,
 				337835C81E42D35D00C24945 /* Resources */,
+				DB4F810368E0D1B40CCF8E4C /* [CP] Embed Pods Frameworks */,
+				73C7625330ED520B8B523D3D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -131,13 +169,62 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		73C7625330ED520B8B523D3D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tumblet/Pods-Tumblet-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		74A4DB5266D3D767E14A41A0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		DB4F810368E0D1B40CCF8E4C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tumblet/Pods-Tumblet-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		337835C61E42D35D00C24945 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				337835D01E42D35E00C24945 /* ViewController.swift in Sources */,
 				337835CE1E42D35E00C24945 /* AppDelegate.swift in Sources */,
+				337835E31E42DCF600C24945 /* PhotoCell.swift in Sources */,
+				337835E01E42D5C900C24945 /* PhotosViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,6 +345,7 @@
 		};
 		337835DD1E42D35E00C24945 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BEC0A822746485FE16FF1543 /* Pods-Tumblet.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Tumblet/Info.plist;
@@ -270,6 +358,7 @@
 		};
 		337835DE1E42D35E00C24945 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B86C930B222A557906E62F77 /* Pods-Tumblet.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Tumblet/Info.plist;
@@ -299,6 +388,7 @@
 				337835DE1E42D35E00C24945 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

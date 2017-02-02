@@ -1,0 +1,6 @@
+framework module Pods_Tumblet {
+  umbrella header "Pods-Tumblet-umbrella.h"
+
+  export *
+  module * { export * }
+}
