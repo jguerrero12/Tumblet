@@ -60,8 +60,8 @@ The following **required** functionality is complete:
 
 The following **optional** functionality is complete:
 
-- [x] Add Avatar and Publish Dates
-- [x] Zoomable Photo View
+- [ ] Add Avatar and Publish Dates
+- [ ] Zoomable Photo View
 
 ## Video Walkthrough 
 
