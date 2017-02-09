@@ -15,42 +15,8 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     var posts: [NSDictionary] = []
     var isMoreDataLoading = false
     var loadingMoreView:InfiniteScrollActivityView?
-    
-    
-    func refreshControlAction(_ refreshControl: UIRefreshControl) {
-        
-        let url = URL(string:"https://api.tumblr.com/v2/blog/humansofnewyork.tumblr.com/posts/photo?api_key=Q6vHoaVm5L1u2ZAW1fqv3Jw48gFzYVg9P0vH0VHl3GVy6quoGV")
-        let request = URLRequest(url: url!)
-        let session = URLSession(
-            configuration: URLSessionConfiguration.default,
-            delegate:nil,
-            delegateQueue:OperationQueue.main
-        )
-        
-        let task : URLSessionDataTask = session.dataTask(
-            with: request as URLRequest,
-            completionHandler: { (data, response, error) in
-                if let data = data {
-                    if let responseDictionary = try! JSONSerialization.jsonObject(
-                        with: data, options:[]) as? NSDictionary {
-                        //print("responseDictionary: \(responseDictionary)")
-                        
-                        // Recall there are two fields in the response dictionary, 'meta' and 'response'.
-                        // This is how we get the 'response' field
-                        let responseFieldDictionary = responseDictionary["response"] as! NSDictionary
-                        
-                        self.posts = responseFieldDictionary["posts"] as! [NSDictionary]
-                        
-                        self.table.reloadData()
-                        // This is where you will store the returned array of posts in your posts property
-                        // self.feeds = responseFieldDictionary["posts"] as! [NSDictionary]
-                        refreshControl.endRefreshing()
-                    }
-                }
-        });
-        task.resume()
-        
-    }
+    var offset: Int = 0
+    var numOfPosts: Int = 0
     
     override func viewDidLoad() {
         
@@ -60,7 +26,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         table.rowHeight = 240
         
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(refreshControlAction(refreshControl)), for: UIControlEvents.valueChanged)
+        refreshControl.addTarget(self, action: #selector(refreshControlAction(refreshControl:)), for: UIControlEvents.valueChanged)
         table.insertSubview(refreshControl, at: 0)
         
         // Set up Infinite Scroll loading indicator
@@ -88,23 +54,50 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
                 if let data = data {
                     if let responseDictionary = try! JSONSerialization.jsonObject(
                         with: data, options:[]) as? NSDictionary {
-                        //print("responseDictionary: \(responseDictionary)")
                         
-                        // Recall there are two fields in the response dictionary, 'meta' and 'response'.
-                        // This is how we get the 'response' field
                         let responseFieldDictionary = responseDictionary["response"] as! NSDictionary
-                        
+                        self.numOfPosts = responseFieldDictionary["total_posts"] as! Int
                         self.posts = responseFieldDictionary["posts"] as! [NSDictionary]
+                        self.offset = self.posts.count
                         
                         self.table.reloadData()
-                        // This is where you will store the returned array of posts in your posts property
-                        // self.feeds = responseFieldDictionary["posts"] as! [NSDictionary]
-                    }
+                        }
                 }
         });
         task.resume()
     }
     
+    func refreshControlAction(refreshControl: UIRefreshControl) {
+        
+        let url = URL(string:"https://api.tumblr.com/v2/blog/humansofnewyork.tumblr.com/posts/photo?api_key=Q6vHoaVm5L1u2ZAW1fqv3Jw48gFzYVg9P0vH0VHl3GVy6quoGV")
+        let request = URLRequest(url: url!)
+        let session = URLSession(
+            configuration: URLSessionConfiguration.default,
+            delegate:nil,
+            delegateQueue:OperationQueue.main
+        )
+        
+        let task : URLSessionDataTask = session.dataTask(
+            with: request as URLRequest,
+            completionHandler: { (data, response, error) in
+                if let data = data {
+                    if let responseDictionary = try! JSONSerialization.jsonObject(
+                        with: data, options:[]) as? NSDictionary {
+                        
+                        let responseFieldDictionary = responseDictionary["response"] as! NSDictionary
+                        
+                        self.posts = responseFieldDictionary["posts"] as! [NSDictionary]
+                        self.numOfPosts = responseFieldDictionary["total_posts"] as! Int
+                        self.offset = self.posts.count
+                        self.table.reloadData()
+                        
+                        refreshControl.endRefreshing()
+                    }
+                }
+        });
+        task.resume()
+        
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
@@ -161,33 +154,55 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func loadMoreData() {
-        
-        // ... Create the NSURLRequest (myRequest) ...
-        
-        // Configure session so that completion handler is executed on main UI thread
-        let session = NSURLSession(
-            configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
+        if (offset < numOfPosts) {
+        let url = URL(string:"https://api.tumblr.com/v2/blog/humansofnewyork.tumblr.com/posts/photo?api_key=Q6vHoaVm5L1u2ZAW1fqv3Jw48gFzYVg9P0vH0VHl3GVy6quoGV&offset=\(offset)")
+        let request = URLRequest(url: url!)
+        let session = URLSession(
+            configuration: URLSessionConfiguration.default,
             delegate:nil,
-            delegateQueue:NSOperationQueue.mainQueue()
+            delegateQueue:OperationQueue.main
         )
         
-        let task : NSURLSessionDataTask = session.dataTaskWithRequest(myRequest,
-                                                                      completionHandler: { (data, response, error) in
-                                                                        
-                                                                        // Update flag
-                                                                        self.isMoreDataLoading = false
-                                                                        
-                                                                        // Stop the loading indicator
-                                                                        self.loadingMoreView!.stopAnimating()
-                                                                        
-                                                                        // ... Use the new data to update the data source ...
-                                                                        
-                                                                        // Reload the tableView now that there is new data
-                                                                        self.myTableView.reloadData()
-        });
-        task.resume()
-    }
+        let task : URLSessionDataTask = session.dataTask(
+            with: request as URLRequest,
+            completionHandler: { (data, response, error) in
+                
+                if let data = data {
+                    if let responseDictionary = try! JSONSerialization.jsonObject(
+                        with: data, options:[]) as? NSDictionary {
+                        
+                        let responseFieldDictionary = responseDictionary["response"] as! NSDictionary
+                        self.numOfPosts = responseFieldDictionary["total_posts"] as! Int
+                        let newPosts = (responseFieldDictionary["posts"] as! [NSDictionary])
+                        
+                        for post in newPosts { // add the results to our post dictionary
+                        self.posts.append(post)
+                        }
+                        
+                        self.offset = self.posts.count // post offset for next loadMoreData call
+                    }
+                }
 
+                
+                // Update flag
+                self.isMoreDataLoading = false
+                
+                // Stop the loading indicator
+                self.loadingMoreView!.stopAnimating()
+                
+                // Reload the tableView now that there is new data
+                self.table.reloadData()
+                
+        });
+            task.resume()
+        }
+        else{
+            // Update flag
+            self.isMoreDataLoading = false
+        }
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
