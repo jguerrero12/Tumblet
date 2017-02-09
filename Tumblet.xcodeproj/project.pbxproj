@@ -13,6 +13,8 @@
 		337835D81E42D35E00C24945 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 337835D61E42D35E00C24945 /* LaunchScreen.storyboard */; };
 		337835E01E42D5C900C24945 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337835DF1E42D5C900C24945 /* PhotosViewController.swift */; };
 		337835E31E42DCF600C24945 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337835E21E42DCF600C24945 /* PhotoCell.swift */; };
+		33E503471E4C1169004BA237 /* photoDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E503461E4C1169004BA237 /* photoDetailsViewController.swift */; };
+		33E5034A1E4C2C44004BA237 /* InfiniteScrollActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E503491E4C2C44004BA237 /* InfiniteScrollActivityView.swift */; };
 		E6135D3A6394DD2E5A79BD17 /* Pods_Tumblet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2673737F20C1F1BE724A53A0 /* Pods_Tumblet.framework */; };
 /* End PBXBuildFile section */
 
@@ -26,6 +28,8 @@
 		337835D91E42D35E00C24945 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		337835DF1E42D5C900C24945 /* PhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		337835E21E42DCF600C24945 /* PhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
+		33E503461E4C1169004BA237 /* photoDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = photoDetailsViewController.swift; sourceTree = "<group>"; };
+		33E503491E4C2C44004BA237 /* InfiniteScrollActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteScrollActivityView.swift; sourceTree = "<group>"; };
 		B86C930B222A557906E62F77 /* Pods-Tumblet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tumblet.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tumblet/Pods-Tumblet.release.xcconfig"; sourceTree = "<group>"; };
 		BEC0A822746485FE16FF1543 /* Pods-Tumblet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tumblet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tumblet/Pods-Tumblet.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -71,6 +75,7 @@
 		337835CC1E42D35E00C24945 /* Tumblet */ = {
 			isa = PBXGroup;
 			children = (
+				33E503481E4C2C0E004BA237 /* Views */,
 				337835E11E42D5D400C24945 /* View Controllers */,
 				337835CD1E42D35E00C24945 /* AppDelegate.swift */,
 				337835D11E42D35E00C24945 /* Main.storyboard */,
@@ -86,8 +91,17 @@
 			children = (
 				337835DF1E42D5C900C24945 /* PhotosViewController.swift */,
 				337835E21E42DCF600C24945 /* PhotoCell.swift */,
+				33E503461E4C1169004BA237 /* photoDetailsViewController.swift */,
 			);
 			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		33E503481E4C2C0E004BA237 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				33E503491E4C2C44004BA237 /* InfiniteScrollActivityView.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		F403673733C071432D422BB4 /* Pods */ = {
@@ -222,6 +236,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33E5034A1E4C2C44004BA237 /* InfiniteScrollActivityView.swift in Sources */,
+				33E503471E4C1169004BA237 /* photoDetailsViewController.swift in Sources */,
 				337835CE1E42D35E00C24945 /* AppDelegate.swift in Sources */,
 				337835E31E42DCF600C24945 /* PhotoCell.swift in Sources */,
 				337835E01E42D5C900C24945 /* PhotosViewController.swift in Sources */,
