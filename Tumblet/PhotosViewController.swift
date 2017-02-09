@@ -14,6 +14,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var table: UITableView!
     var posts: [NSDictionary] = []
     var isMoreDataLoading = false
+    var loadingMoreView:InfiniteScrollActivityView?
     
     
     func refreshControlAction(_ refreshControl: UIRefreshControl) {
@@ -61,6 +62,16 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshControlAction(refreshControl)), for: UIControlEvents.valueChanged)
         table.insertSubview(refreshControl, at: 0)
+        
+        // Set up Infinite Scroll loading indicator
+        let frame = CGRect(x: 0, y: table.contentSize.height, width: table.bounds.size.width, height: InfiniteScrollActivityView.defaultHeight)
+        loadingMoreView = InfiniteScrollActivityView(frame: frame)
+        loadingMoreView!.isHidden = true
+        table.addSubview(loadingMoreView!)
+        
+        var insets = table.contentInset;
+        insets.bottom += InfiniteScrollActivityView.defaultHeight;
+        table.contentInset = insets
         
         // Do any additional setup after loading the view.
         let url = URL(string:"https://api.tumblr.com/v2/blog/humansofnewyork.tumblr.com/posts/photo?api_key=Q6vHoaVm5L1u2ZAW1fqv3Jw48gFzYVg9P0vH0VHl3GVy6quoGV")
@@ -137,7 +148,12 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
             if(scrollView.contentOffset.y > scrollOffsetThreshold && table.isDragging) {
                 isMoreDataLoading = true
                 
-                loadMoreData()
+                // Update position of loadingMoreView, and start loading indicator
+                let frame = CGRect(x: 0, y: table.contentSize.height, width: table.bounds.size.width, height: InfiniteScrollActivityView.defaultHeight)
+                loadingMoreView?.frame = frame
+                loadingMoreView!.startAnimating()
+                
+                loadMoreData()// adds more results to tableView
             }
         }
         
@@ -160,6 +176,9 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
                                                                         
                                                                         // Update flag
                                                                         self.isMoreDataLoading = false
+                                                                        
+                                                                        // Stop the loading indicator
+                                                                        self.loadingMoreView!.stopAnimating()
                                                                         
                                                                         // ... Use the new data to update the data source ...
                                                                         
