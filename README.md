@@ -26,7 +26,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## License
 
-Copyright [2017] [Jose A. Guerrero]
+Copyright 2017 Jose A. Guerrero
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -43,12 +43,13 @@ limitations under the License.
 ## Acknowledgments
 
 App icon credit: Darius Dan - http://icon-icons.com/icon/twitter-social-media-letter-t/59288
+
 ------------------------------------------------------------------------------------------------------------------------------------------
 # Lab 2 - Tumblet
 
 Tumblet is a Tumblr app for viewing posts from the blog: Humans of New York, using the [The Tumblr API](https://www.tumblr.com/docs/en/api/v2#posts).
 
-Time spent: 7 hours spent in total
+Time spent: 6 hours spent in total
 
 ## User Stories
 
@@ -77,7 +78,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## License
 
-Copyright [2017] [Jose A. Guerrero]
+Copyright 2017 Jose A. Guerrero
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
