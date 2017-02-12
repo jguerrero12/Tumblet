@@ -14,6 +14,10 @@ class photoDetailsViewController: UIViewController {
     
     @IBOutlet weak var postImage: UIImageView!
     
+    @IBAction func presentZoomView(_ sender: Any) {
+        performSegue(withIdentifier: "zoomViewSegue", sender: nil)
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         postImage.setImageWith(photoURL)
@@ -26,14 +30,10 @@ class photoDetailsViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        let destinationViewController = segue.destination as! FullScreenPhotoViewController
+        
+        destinationViewController.image = self.postImage.image
     }
-    */
 
 }

@@ -56,12 +56,16 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
                         with: data, options:[]) as? NSDictionary {
                         
                         let responseFieldDictionary = responseDictionary["response"] as! NSDictionary
-                        self.numOfPosts = responseFieldDictionary["total_posts"] as! Int
-                        self.posts = responseFieldDictionary["posts"] as! [NSDictionary]
-                        self.offset = self.posts.count
                         
-                        self.table.reloadData()
+                        DispatchQueue.main.async {
+                            self.numOfPosts = responseFieldDictionary["total_posts"] as! Int
+                            self.posts = responseFieldDictionary["posts"] as! [NSDictionary]
+                            self.offset = self.posts.count
+                            
+                            self.table.reloadData()
                         }
+                        
+                    }
                 }
         });
         task.resume()
@@ -86,12 +90,14 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
                         
                         let responseFieldDictionary = responseDictionary["response"] as! NSDictionary
                         
+                        DispatchQueue.main.async {
                         self.posts = responseFieldDictionary["posts"] as! [NSDictionary]
                         self.numOfPosts = responseFieldDictionary["total_posts"] as! Int
                         self.offset = self.posts.count
                         self.table.reloadData()
                         
                         refreshControl.endRefreshing()
+                        }
                     }
                 }
         });
@@ -99,8 +105,41 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView,
+                   viewForHeaderInSection section: Int) -> UIView?{
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        headerView.backgroundColor = UIColor(white: 1, alpha: 0.9)
+        
+        let profileView = UIImageView(frame: CGRect(x: 10, y: 5, width: 40, height: 40))
+        profileView.clipsToBounds = true
+        profileView.layer.cornerRadius = 15;
+        profileView.layer.borderColor = UIColor(white: 0.7, alpha: 0.8).cgColor
+        profileView.layer.borderWidth = 1;
+        
+        // Set the avatar
+        profileView.setImageWith(URL(string:"https://api.tumblr.com/v2/blog/humansofnewyork.tumblr.com/avatar")!)
+        headerView.addSubview(profileView)
+        
+        //set date
+        let label = UILabel(frame: CGRect(x: 58, y: 10, width: 250, height: 30))
+        label.clipsToBounds = true
+        label.text = posts[section].object(forKey: "date") as? String
+        headerView.addSubview(label)
+        
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return CGFloat(integerLiteral: 50)
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return posts.count
+    }
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -108,9 +147,9 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = table.dequeueReusableCell(withIdentifier: "photoCell") as! PhotoCell
         
-        let post = posts[indexPath.row]
+        let cell = table.dequeueReusableCell(withIdentifier: "photoCell") as! PhotoCell
+        let post = posts[indexPath.section]
         
         if let photos = post.value(forKeyPath: "photos") as? [NSDictionary] {
             
@@ -154,6 +193,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func loadMoreData() {
+        
         if (offset < numOfPosts) {
         let url = URL(string:"https://api.tumblr.com/v2/blog/humansofnewyork.tumblr.com/posts/photo?api_key=Q6vHoaVm5L1u2ZAW1fqv3Jw48gFzYVg9P0vH0VHl3GVy6quoGV&offset=\(offset)")
         let request = URLRequest(url: url!)
@@ -187,11 +227,13 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
                 // Update flag
                 self.isMoreDataLoading = false
                 
+                DispatchQueue.main.async { // update UI on UIThread
                 // Stop the loading indicator
                 self.loadingMoreView!.stopAnimating()
                 
                 // Reload the tableView now that there is new data
                 self.table.reloadData()
+                }
                 
         });
             task.resume()
@@ -199,6 +241,9 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         else{
             // Update flag
             self.isMoreDataLoading = false
+            
+            // Stop the loading indicator
+            self.loadingMoreView!.stopAnimating()
         }
         
     }
@@ -213,7 +258,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         let cell = sender as! UITableViewCell
         let indexPath = table.indexPath(for: cell)
         
-        let post = posts[(indexPath?.row)!] as NSDictionary
+        let post = posts[(indexPath?.section)!] as NSDictionary
         if let photos = post.value(forKeyPath: "photos") as? [NSDictionary] {
             
             let imageUrlString = photos[0].value(forKeyPath: "original_size.url") as? String
