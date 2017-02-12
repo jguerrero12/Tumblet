@@ -49,7 +49,7 @@ App icon credit: Darius Dan - http://icon-icons.com/icon/twitter-social-media-le
 
 Tumblet is a Tumblr app for viewing posts from the blog: Humans of New York, using the [The Tumblr API](https://www.tumblr.com/docs/en/api/v2#posts).
 
-Time spent: 6 hours spent in total
+Time spent: 8.5 hours spent in total
 
 ## User Stories
 
@@ -61,8 +61,8 @@ The following **required** functionality is complete:
 
 The following **optional** functionality is complete:
 
-- [ ] Add Avatar and Publish Dates
-- [ ] Zoomable Photo View
+- [x] Add Avatar and Publish Dates
+- [x] Zoomable Photo View
 
 ## Video Walkthrough 
 
@@ -74,7 +74,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-- will add optional features such as add avatar icons, publish dates, and zoomable photo view.
+- Photo zoom needs to be centered when zoomed (like photos app)
 
 ## License
 
